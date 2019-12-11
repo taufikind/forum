@@ -16,7 +16,7 @@ class ForumController extends Controller
     {
         $this->middleware('auth')->except('index','show','populars');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -37,17 +37,43 @@ class ForumController extends Controller
 
     public function index()
     {
-        $populars = DB::table('forums')
-                        ->join('page-views','forums.id','=','page-views.visitable_id')
-                        ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
-                        ->groupBy('id','title','slug')
-                        ->orderBy('count','desc')
-                        ->take(5)
-                        ->get();
+      if(Auth::check()){
+              $user = Auth::user();
+              $id = Auth::id();
+              $forums = Forum::paginate(6);
+              $populars = DB::table('forums')
+                              ->join('page-views','forums.id','=','page-views.visitable_id')
+                              ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
+                              ->groupBy('id','title','slug')
+                              ->orderBy('count','desc')
+                              ->take(5)
+                              ->get();
 
-        $forums = Forum::paginate(6);
+          if ($user->role_id == 1 || $user->role_id == 0) {
+            $data = array(
+              'forums' => $forums,
+              'populars' => $populars,
+              'role_id'=> $user->role_id,
+              'id'=> $id
+            );
+            return view('forum/index')->with($data);
+            }else {
+                return redirect('/');
+            }
+          }
+        // $populars = DB::table('forums')
+        //                 ->join('page-views','forums.id','=','page-views.visitable_id')
+        //                 ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
+        //                 ->groupBy('id','title','slug')
+        //                 ->orderBy('count','desc')
+        //                 ->take(5)
+        //                 ->get();
+        //
+        // $forums = Forum::paginate(6);
+        // $role = Role:
 
-        return view('forum.index', compact ('forums','populars'));
+
+        // return view('forum.index', compact ('forums','populars'));
     }
 
     /**
@@ -55,11 +81,15 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $forums = Forum::orderBy('id','desc')->paginate(1);
-        $tags = Tag::all();
-        return view('forum.create', compact('tags','forums'));
+          if ($id == 1) {
+          $forums = Forum::orderBy('id','desc')->paginate(1);
+          $tags = Tag::all();
+          return view('forum.create', compact('tags','forums'));
+        }else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -90,7 +120,7 @@ class ForumController extends Controller
         }
 
         $forums->save();
-        $forums->tags()->sync($request->tags);   
+        $forums->tags()->sync($request->tags);
         return back()->withInfo('Pertanyaan Berhasil Di Kirim.');
     }
 
@@ -114,7 +144,7 @@ class ForumController extends Controller
                     ->orWhere('slug', $slug)
                     ->firstOrFail();
         $forums->addPageView();
-        
+
         return view('forum.show', compact('forums','populars'));
     }
 
@@ -166,9 +196,9 @@ class ForumController extends Controller
         }
 
         $forums->save();
-        $forums->tags()->sync($request->tags);   
+        $forums->tags()->sync($request->tags);
         return back()->withInfo('Pertanyaan Berhasil Di Update.');
-    }   
+    }
 
     /**
      * Remove the specified resource from storage.

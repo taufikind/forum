@@ -9,6 +9,8 @@ class forum extends Model
 {
     use HasPageViewCounter;
 
+    protected $table = 'forums';
+
     public function user()
     {
         return $this->belongsTo('App\User');

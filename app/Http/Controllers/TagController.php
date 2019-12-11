@@ -13,7 +13,7 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() 
+    public function index()
     {
       $populars = DB::table('forums')
                       ->join('page-views','forums.id','=','page-views.visitable_id')
@@ -22,8 +22,10 @@ class TagController extends Controller
                       ->orderBy('count','desc')
                       ->take(10)
                       ->get();
-                      
+      // var_dump($populars); die();
+
       $tags = Tag::all();
+      // var_dump($tags); die();
       return view('tag.index', compact('tags','populars'));
     }
 
@@ -73,7 +75,7 @@ class TagController extends Controller
         $tags = Tag::where('id', $slug)
                     ->orWhere('slug', $slug)
                     ->firstOrFail();
-         
+
         return view('tag.show', compact('tags','populars'));
     }
 

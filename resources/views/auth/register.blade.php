@@ -39,13 +39,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Level User') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -80,9 +73,9 @@
                 </div>
             </div>
             <br>
-            <div class="create_info" style="color: #fff;"> 
-              <span><i class="fa fa-info-circle"></i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</span> 
-            </div> 
+            <div class="create_info" style="color: #fff;">
+              <span><i class="fa fa-info-circle"></i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</span>
+            </div>
         </div>
        </div>
     </div>

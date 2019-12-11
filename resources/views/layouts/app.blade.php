@@ -9,17 +9,22 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>HSE-Forum Informations | @yield('title')</title>
- 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    
+
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">  
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet"> 
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-    
+
+    <!--Datatables-->
+    <link href="/assets/datatables/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="/assets/datatables/css/responsive.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -30,15 +35,14 @@
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button> 
+                </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto" id="nav_ul">
                     <li><a class="nav-link" href="{{ route('forum.index') }}">{{ __('Forum') }}</a></li>
-                    
-                   </ul> 
+                   </ul>
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto" id="nav_ul"> 
+                    <ul class="navbar-nav ml-auto" id="nav_ul">
              <!-- Authentication Links -->
                   @guest
                     <li ><a class="nav-link" id="b" href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -52,11 +56,16 @@
                   </span>
                         <li class="nav-item dropdown">
                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>  Menu <span class="caret"></span>
-                             </a> 
-                            <div class="dropdown-menu"  aria-labelledby="navbarDropdown"> 
+                             </a>
+                            <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                              @if($role_id == 1)
                                <a class="dropdown-item" href="{{ route('forum.create') }}" style="color: #444;">
                                         {{ __('Buat Pertanyaan') }}
-                                </a> 
+                                </a>
+                                <a class="dropdown-item" href="{{ route('role') }}" style="color: #444;">
+                                         Role
+                                 </a>
+                                 @endif
                                 </div>
                             </li>
 
@@ -69,7 +78,7 @@
                                     <a class="dropdown-item" href="{{ route('profile',Auth::user()->name) }}" style="color: #444;">
                                         {{ __('Profile') }}
                                     </a>
-                                  
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" style="color: #444;">
@@ -87,22 +96,32 @@
             </div>
         </nav>
 
-        <main class="py-4"> 
+        <main class="py-4">
             <div class="container">
                 @include('layouts.info')
             </div>
             @yield('content')
-            
+
             @include('layouts.footer')
         </main>
     </div>
 
     <!-- Script -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="/assets/js/jquery-3.2.1.min.js"></script>
+    <!--Datatables-->
+    <script type="text/javascript" src="/assets/datatables/script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/assets/datatables/script/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/assets/datatables/script/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="/assets/datatables/script/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/assets/datatables/script/bootstrap.min.js"></script>
+    <script src="/assets/js/sweetalert2.all.min.js"></script>
+
+    <!-- <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    
-    @yield('js')
+    @yield('js') -->
+
+    @stack('scripts')
 
 </body>
 </html>

@@ -4,23 +4,23 @@
 <div class="container">
   <div class="jumbotron" id="tc_jumbotron">
     <div class="card-body" id="xx" style="color: #fff;     border:1px solid #fff;">
-        <div class="text-center"> 
-           <h1 style="    font-size: 3.5rem;">FORUM INFORMATION</h1> 
-        <p>Forum tanya jawab. Membantu, Mencari Solusi Selesaikan Masalah Coding Mu. </p>  
+        <div class="text-center">
+           <h1 style="    font-size: 3.5rem;">FORUM INFORMATION</h1>
+        <p>Forum tanya jawab. Membantu, Mencari Solusi Selesaikan Masalah Coding Mu. </p>
           </div>
-        </div> 
-      </div> 
-    </div>  
-        <div class="container"> 
+        </div>
+      </div>
+    </div>
+        <div class="container">
             <div class="row">
              <div class="col-md-12" id="tc_container_wrap">
-            <div class="card" id="tc_paneldefault"> 
-                <div class="card-body" id="tc_panelbody"  style="background: #f9f9f9;">  
+            <div class="card" id="tc_paneldefault">
+                <div class="card-body" id="tc_panelbody"  style="background: #f9f9f9;">
                 <div class="card">
                        <div class="card-header" style="background-color: #2ab27b;padding: 6px 11px 6px 23px;">
                           <div class="menu_a" style="float: left;">
                           <a href="{{route('populars')}}">Postingan Terpopuler</a>
-                          <a href="{{route('tag.index')}}">Tag</a> 
+                          <a href="{{route('tag.index')}}">Tag</a>
                           </div>
                           <div class="search" style="margin: 3px;">
                           <div class="col-md-4 float-right" style="    padding-right: 0;">
@@ -45,31 +45,31 @@
                   <th scope="col">Nama User</th>
                 </tr>
               </thead>
-              <tbody style="background: #f9f9f9;"> 
+              <tbody style="background: #f9f9f9;">
               @foreach($forums as $forum)
-                <tr> 
+                <tr>
                 <td width="453">
                 <div class="forum_title">
                 <h4> <a href="{{route('forumslug', $forum->slug)}}">{{ str_limit($forum->title, 40)}}</a></h4>
-                <p>  {!! strip_tags(str_limit($forum->description, 60) ) !!}</p> 
+                <p>  {!! strip_tags(str_limit($forum->description, 60) ) !!}</p>
                 @foreach($forum->tags as $tag)
-                <a href="#" class="badge badge-success tag_label">#{{$tag->name}}</a>
+                <a href="{{route('tag.show', $tag->slug)}}" class="badge badge-success tag_label">#{{$tag->name}}</a>
                 @endforeach
                 @if(empty($forum->image))
                 @else
-                 <div class="badge badge-success tag_label_image"><i class="fa fa-image"></i></div> 
+                 <div class="badge badge-success tag_label_image"><i class="fa fa-image"></i></div>
                 @endif
-                </div> 
+                </div>
               </td>
                <td  style="text-align: center"><small> {{$forum->comments->count()}}</small></td>
               <td  style="text-align: center"><small> {{$forum->getPageViews()}}</small></td>
               <td>
             <div class="forum_by">
             <small style="margin-bottom: 0; color: #666">2 min ago</small>
-             <small>by <a href="#">{{$forum->user->name}}</a></small>        
+             <small>by <a href="#">{{$forum->user->name}}</a></small>
             </div>
             </td>
-            </tr>  
+            </tr>
             @endforeach
               </tbody>
             </table>
@@ -78,11 +78,13 @@
                 </div>
               </div>
                 <div class="col-md-4"> <br>
-                <a href="{{route('forum.create')}}" class="btn btn-success btn-block">Buat Pertanyaan</a><br>
+                @if($role_id == 1)
+                <a href="{{url('forum/create/'.$role_id)}}" class="btn btn-success btn-block">Buat Pertanyaan</a><br>
+                @endif
               @include('layouts.popular')
                 </div>
                 </div>
-                <hr style="margin-top: 0;"> 
+                <hr style="margin-top: 0;">
                 <div class="card">
                 <div class="card-header"></div>
                 <div class="card-body" style="background: rgb(90, 90, 90)"></div>
@@ -94,4 +96,3 @@
     </div>
 </div><br><br>
 @endsection
- 

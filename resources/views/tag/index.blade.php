@@ -5,22 +5,22 @@
   <div class="jumbotron" id="tc_jumbotron">
     <div class="card-body"style="color: #fff;border:1px solid #fff;">
         <div class="text-center">
-           <h1 style="font-size: 3.5rem;">Tags</h1> 
-          <p>Pilih thread berdasarkan tag. </p> 
+           <h1 style="font-size: 3.5rem;">Tags</h1>
+          <p>Pilih thread berdasarkan tag. </p>
       </div>
     </div>
   </div>
-</div>  
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-12" id="tc_container_wrap">
             <div class="card">
-                <div class="card-body" style="background: #f9f9f9;"> 
+                <div class="card-body" style="background: #f9f9f9;">
                     <div class="card">
                        <div class="card-header" style="background-color: #2ab27b;padding: 6px 11px 6px 23px;">
                           <div class="menu_a" style="float: left;">
-                          <a href="{{route('populars')}}">Populer</a> 
-                          <a href="{{route('tag.index')}}">Tag</a> 
+                          <a href="{{route('populars')}}">Populer</a>
+                          <a href="{{route('tag.index')}}">Tag</a>
                           </div>
                           <div class="search" style="margin: 3px;">
                           <div class="col-md-4 float-right" style="padding-right: 0;">
@@ -33,7 +33,7 @@
                        </div>
                      </div>
                     </div>
-                  </div>  
+                  </div>
       <br>
 <div class="row">
    <div class="col-md-8">
@@ -57,4 +57,3 @@
     </div>
  <br>
 @endsection
- 
