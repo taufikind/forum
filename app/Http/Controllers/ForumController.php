@@ -56,10 +56,27 @@ class ForumController extends Controller
               'role_id'=> $user->role_id,
               'id'=> $id
             );
+
             return view('forum/index')->with($data);
             }else {
-                return redirect('/');
+              return redirect('/');
             }
+          }else {
+            $forums = Forum::paginate(6);
+            $populars = DB::table('forums')
+                            ->join('page-views','forums.id','=','page-views.visitable_id')
+                            ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
+                            ->groupBy('id','title','slug')
+                            ->orderBy('count','desc')
+                            ->take(5)
+                            ->get();
+            $role_id = 0;
+            $data = array(
+              'forums' => $forums,
+              'populars' => $populars,
+              'role_id'=> $role_id
+            );
+            return view('forum/index')->with($data);
           }
         // $populars = DB::table('forums')
         //                 ->join('page-views','forums.id','=','page-views.visitable_id')
@@ -70,9 +87,7 @@ class ForumController extends Controller
         //                 ->get();
         //
         // $forums = Forum::paginate(6);
-        // $role = Role:
-
-
+        //
         // return view('forum.index', compact ('forums','populars'));
     }
 
@@ -86,7 +101,8 @@ class ForumController extends Controller
           if ($id == 1) {
           $forums = Forum::orderBy('id','desc')->paginate(1);
           $tags = Tag::all();
-          return view('forum.create', compact('tags','forums'));
+          $role_id = $id;
+          return view('forum.create', compact('tags','forums','role_id'));
         }else {
             return redirect('/');
         }
@@ -130,8 +146,9 @@ class ForumController extends Controller
      * @param  \App\forum  $forum
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($slug,$role_id)
     {
+        $role_id = $role_id;
         $populars = DB::table('forums')
                         ->join('page-views','forums.id','=','page-views.visitable_id')
                         ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
@@ -139,13 +156,16 @@ class ForumController extends Controller
                         ->orderBy('count','desc')
                         ->take(5)
                         ->get();
-
+        // var_dump($populars); die();
         $forums = Forum::where('id', $slug)
                     ->orWhere('slug', $slug)
                     ->firstOrFail();
+                    // var_dump($forums); die();
         $forums->addPageView();
 
-        return view('forum.show', compact('forums','populars'));
+
+        return view('forum.show', compact('forums','populars','role_id'));
+
     }
 
     /**

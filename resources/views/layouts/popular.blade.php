@@ -3,8 +3,8 @@
 
     <div class="list-group">
     @foreach($populars as $popular)
-        <a href="{{route('forumslug',$popular->slug)}}" class="list-group-item" id="index_hover">{{$popular->title}}      
+        <a href="{{url('forum/read'.'/'.$popular->slug.'/'.$role_id)}}" class="list-group-item" id="index_hover">{{$popular->title}}      
     @endforeach
-        </a> 
+        </a>
     </div>
 </div>

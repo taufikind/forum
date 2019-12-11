@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/forum','ForumController');
 Route::get('forum/create/{id}', 'ForumController@create');
-Route::get('/forum/read/{slug}', 'ForumController@show')->name('forumslug');
+Route::get('forum/read/{slug}/{role_id}', 'ForumController@show');
 
 Route::post('/comment/addComment/{forum}', 'CommentController@addComment')->name('addComment');
 
@@ -32,6 +32,7 @@ Route::get('/populars', 'ForumController@populars')->name('populars');
 Route::get('/user/{user}','ProfileController@index')->name('profile');
 
 Route::resource('/tag','TagController');
+Route::get('tag/show/{slug}/{role_id}', 'TagController@show');
 
 //role
 Route::get('/role', 'RoleController@index')->name('role')->middleware('auth');

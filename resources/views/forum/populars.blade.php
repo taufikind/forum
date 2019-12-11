@@ -4,22 +4,22 @@
 <div class="container">
   <div class="jumbotron" id="tc_jumbotron">
     <div class="card-body" id="xx" style="color: #fff; border:1px solid #fff;">
-        <div class="text-center"> 
-           <h1 style="font-size: 3.5rem;">Postingan Terpopular</h1> 
-          <p>Menampilkan halaman untuk postingan yang paling popular. </p>  
+        <div class="text-center">
+           <h1 style="font-size: 3.5rem;">Postingan Terpopular</h1>
+          <p>Menampilkan halaman untuk postingan yang paling popular. </p>
       </div>
-    </div> 
-  </div> 
-</div>  
-<div class="container"> 
+    </div>
+  </div>
+</div>
+<div class="container">
     <div class="row">
         <div class="col-md-12" id="tc_container_wrap">
-            <div class="card" id="tc_paneldefault"> 
-                <div class="card-body" id="tc_panelbody"  style="background: #f9f9f9;"> 
+            <div class="card" id="tc_paneldefault">
+                <div class="card-body" id="tc_panelbody"  style="background: #f9f9f9;">
                    <div class="card">
                        <div class="card-header" style="background-color: #2ab27b;padding: 6px 11px 6px 23px;">
                           <div class="menu_a" style="float: left;">
-                          <a href="{{route('populars')}}">Postingan Terpopuler</a> 
+                          <a href="{{route('populars')}}">Postingan Terpopuler</a>
                           </div>
                           <div class="search" style="margin: 3px;">
                           <div class="col-md-4 float-right" style="    padding-right: 0;">
@@ -33,13 +33,14 @@
                      </div>
                     </div>
                   </div><br>
-                  <div class="card"  style="background: #f9f9f9;">    
+                  <div class="card"  style="background: #f9f9f9;">
                   <div class="list-group">
-                    @foreach($populars as $popular) 
-                    <a href="{{route('forumslug', $popular->slug)}}" class="list-group-item" id="index_hover">{{$popular->title}}</a> 
+                    @foreach($populars as $popular)
+                    <a href="{{url('forum/read'.'/'.$popular->slug.'/'.$role_id)}}" class="list-group-item" id="index_hover">{{$popular->title}}</a>
+
                     @endforeach
-                  </div> 
-                  </div> 
+                  </div>
+                  </div>
                   <br>
                   <div class="card">
                   <div class="card-header"></div>
@@ -50,6 +51,5 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 @endsection
- 

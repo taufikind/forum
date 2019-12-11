@@ -50,10 +50,11 @@
                 <tr>
                 <td width="453">
                 <div class="forum_title">
-                <h4> <a href="{{route('forumslug', $forum->slug)}}">{{ str_limit($forum->title, 40)}}</a></h4>
+                <h4> <a href="{{url('forum/read'.'/'.$forum->slug.'/'.$role_id)}}">{{ str_limit($forum->title, 40)}}</a></h4>
+
                 <p>  {!! strip_tags(str_limit($forum->description, 60) ) !!}</p>
                 @foreach($forum->tags as $tag)
-                <a href="{{route('tag.show', $tag->slug)}}" class="badge badge-success tag_label">#{{$tag->name}}</a>
+                <a href="{{url('tag/show'.'/'.$tag->slug.'/'.$role_id)}}" class="badge badge-success tag_label">#{{$tag->name}}</a>
                 @endforeach
                 @if(empty($forum->image))
                 @else
@@ -78,7 +79,7 @@
                 </div>
               </div>
                 <div class="col-md-4"> <br>
-                @if($role_id == 1)
+                @if($role_id == 1 )
                 <a href="{{url('forum/create/'.$role_id)}}" class="btn btn-success btn-block">Buat Pertanyaan</a><br>
                 @endif
               @include('layouts.popular')

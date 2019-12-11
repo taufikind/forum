@@ -38,7 +38,8 @@
 <div class="row">
    <div class="col-md-8">
      @foreach($tags as $tag)
-       <a href="{{route('tag.show', $tag->slug)}}" class="btn btn-success btn-sm">{{$tag->name}} ({{$tag->forums->count()}} <small>thread</small>)</a>
+       <a href="{{url('tag/show'.'/'.$tag->slug.'/'.$role_id)}}" class="btn btn-success btn-sm">{{$tag->name}} ({{$tag->forums->count()}} <small>thread</small>)</a>
+       
      @endforeach
     </div>
        <div class="col-md-4">

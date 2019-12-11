@@ -4,9 +4,9 @@
 <div class="container">
   <div class="jumbotron" id="tc_jumbotron">
     <div class="card-body">
-      <div class="text-center" style="color: #fff;"> 
-           <h1>WELCOME HOME</h1> 
-            <p>Love beautiful code? We do too. </p>  
+      <div class="text-center" style="color: #fff;">
+           <h1>WELCOME HOME</h1>
+            <p>Love beautiful code? We do too. </p>
       </div>
     </div>
  <div class="card" style="border: none;">
@@ -20,16 +20,15 @@
             <a href=""><i class="fa fa-youtube"></i></a>
             <a href=""><i class="fa fa-reddit"></i></a>
             <a href=""><i class="fa fa-github"></i></a>
-        </div> 
-      </div> 
+        </div>
+      </div>
     </div>
   </div>
-</div>  
-<div class="container"> 
+</div>
+<div class="container">
     <div class="row">
         <div class="col-md-12" id="tc_container_wrap">
         </div>
     </div>
 </div>
 @endsection
- 

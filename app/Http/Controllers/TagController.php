@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tag;
+use Auth;
 use DB;
 
 class TagController extends Controller
@@ -15,18 +16,59 @@ class TagController extends Controller
      */
     public function index()
     {
-      $populars = DB::table('forums')
-                      ->join('page-views','forums.id','=','page-views.visitable_id')
-                      ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
-                      ->groupBy('id','title','slug')
-                      ->orderBy('count','desc')
-                      ->take(10)
-                      ->get();
-      // var_dump($populars); die();
+      if(Auth::check()){
+              $user = Auth::user();
+              $id = Auth::id();
+              $tags = Tag::all();
+              $populars = DB::table('forums')
+                              ->join('page-views','forums.id','=','page-views.visitable_id')
+                              ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
+                              ->groupBy('id','title','slug')
+                              ->orderBy('count','desc')
+                              ->take(10)
+                              ->get();
 
-      $tags = Tag::all();
+          if ($user->role_id == 1 || $user->role_id == 0) {
+            $data = array(
+              'tags' => $tags,
+              'populars' => $populars,
+              'role_id'=> $user->role_id,
+              'id'=> $id
+            );
+
+            return view('tag/index')->with($data);
+            }else {
+              return redirect('/');
+            }
+          }else {
+            $tags = Tag::all();
+            $populars = DB::table('forums')
+                            ->join('page-views','forums.id','=','page-views.visitable_id')
+                            ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
+                            ->groupBy('id','title','slug')
+                            ->orderBy('count','desc')
+                            ->take(10)
+                            ->get();
+            $role_id = 0;
+            $data = array(
+              'tags' => $tags,
+              'populars' => $populars,
+              'role_id'=> $role_id
+            );
+            return view('tag/index')->with($data);
+          }
+      // $populars = DB::table('forums')
+      //                 ->join('page-views','forums.id','=','page-views.visitable_id')
+      //                 ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
+      //                 ->groupBy('id','title','slug')
+      //                 ->orderBy('count','desc')
+      //                 ->take(10)
+      //                 ->get();
+      // // var_dump($populars); die();
+      //
+      // $tags = Tag::all();
       // var_dump($tags); die();
-      return view('tag.index', compact('tags','populars'));
+      // return view('tag.index', compact('tags','populars'));
     }
 
     /**
@@ -62,8 +104,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
-    {
+    public function show($slug,$role_id)
+    { 
+        $role_id = $role_id;
         $populars = DB::table('forums')
                         ->join('page-views','forums.id','=','page-views.visitable_id')
                         ->select(DB::raw('count(visitable_id) as count'),'forums.id','forums.title','forums.slug')
@@ -76,7 +119,7 @@ class TagController extends Controller
                     ->orWhere('slug', $slug)
                     ->firstOrFail();
 
-        return view('tag.show', compact('tags','populars'));
+        return view('tag.show', compact('tags','populars','role_id'));
     }
 
     /**

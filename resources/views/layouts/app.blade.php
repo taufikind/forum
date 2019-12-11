@@ -59,8 +59,8 @@
                              </a>
                             <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
                               @if($role_id == 1)
-                               <a class="dropdown-item" href="{{ route('forum.create') }}" style="color: #444;">
-                                        {{ __('Buat Pertanyaan') }}
+                               <a class="dropdown-item" href="{{url('forum/create/'.$role_id)}}" style="color: #444;">
+                                        Buat Pertanyaan
                                 </a>
                                 <a class="dropdown-item" href="{{ route('role') }}" style="color: #444;">
                                          Role
@@ -116,10 +116,10 @@
     <script type="text/javascript" src="/assets/datatables/script/bootstrap.min.js"></script>
     <script src="/assets/js/sweetalert2.all.min.js"></script>
 
-    <!-- <script src="{{ asset('js/app.js') }}"></script>
+    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-    @yield('js') -->
+    @yield('js')
 
     @stack('scripts')
 

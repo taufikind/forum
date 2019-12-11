@@ -4,21 +4,21 @@
 <div class="container">
   <div class="jumbotron" id="tc_jumbotron">
     <div class="card-body" id="xx">
-        <div class="tc_head_title"> 
-           <h2 style="color: #fff;">{{$forums->title}}</h2>  
+        <div class="tc_head_title">
+           <h2 style="color: #fff;">{{$forums->title}}</h2>
         </div>
     </div>
   </div>
-</div>  
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-12" id="tc_container_wrap">
-            <div class="card" id="tc_paneldefault" style="background: #f9f9f9;"> 
+            <div class="card" id="tc_paneldefault" style="background: #f9f9f9;">
                 <div class="card-body" id="tc_panelbody">
                     <div class="row">
                         <div class="col-md-8">
                           <div class="card">
-                             <div class="card-body" style="background: #f9f9f9;"> 
+                             <div class="card-body" style="background: #f9f9f9;">
                       <div class="forum_info">
                      <div class="share pull-right">
                       <a href="#">  <i class="fa fa-facebook"></i></a>
@@ -36,7 +36,7 @@
                             @else
                           <div class="badge badge-success"><i class="fa fa-image"></i></div>
                            @endif
-                    <h3>{{$forums->title}}</h3> 
+                    <h3>{{$forums->title}}</h3>
                   </div>
                   <hr style="margin-top: 0; margin-bottom: 5px;">
                   <div class="forum_description">
@@ -45,15 +45,15 @@
                         <br>
                     <div class="tc_if_empty">
                    <a data-toggle="collapse" data-target="#open_modal"><i class="fa fa-image" id="zoom_image"></i></a>
-                <div id="open_modal" class="collapse"> 
+                <div id="open_modal" class="collapse">
                   <div class="bg">
                     <img src="{{asset('images/'.$forums->image)}}" alt="">
                     <div class="overlay">
-                     <a href="#myModal" data-toggle="modal" data-target="#myModal"><h2>Zoom</h2> </a> 
+                     <a href="#myModal" data-toggle="modal" data-target="#myModal"><h2>Zoom</h2> </a>
                     </div>
                   </div>
                     </div>
-                    </div>  
+                    </div>
                        @endif
                     <p>{!!$forums->description!!}</p>
                   </div>
@@ -71,7 +71,7 @@
                   </div>
                   <div class="modal-body" id="modal_img">
                  <img src="{{asset('images/'.$forums->image)}}" alt="">
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@
             @forelse($forums->comments as $comment)
             <div class="card">
             <div class="card-header" style=" background-color: #2ab27b; color: #fff; border-top-right-radius: 0px; border-top-left-radius: 0px;"><i class="fa fa-clock-o" style="color: #eee"></i> <small style="color: #eee">{{$comment->created_at->diffForHumans()}}</small></div>
-            <div class="card-body" style="background: #f9f9f9; "> 
+            <div class="card-body" style="background: #f9f9f9; ">
               <div class="row">
                 <div class="col-md-3" id="img_comment">
                   <img src="{{asset('images/profile.png')}}" width="100%">
@@ -103,7 +103,7 @@
           </div>
           </div>
           <div id="{{$comment->id}}-collapse1info" class="card-collapse collapse">
-                <div class="card-body">*Klik 'Reply' untuk melihat atau membuat komentar balasan.</div> 
+                <div class="card-body">*Klik 'Reply' untuk melihat atau membuat komentar balasan.</div>
               </div>
           <div id="{{$comment->id}}-collapse1reply" class="card-collapse collapse">
             <div class="card-body">
@@ -111,7 +111,7 @@
               @forelse($comment->comments as $reply)
             <div class="card">
                 <div class="card-header" style="background-color: #2ab27b; color: #fff; border-top-right-radius: 0px; border-top-left-radius: 0px;"><i class="fa fa-clock-o" style="color: #eee"></i> <small style="color: #eee">{{$reply->created_at->diffForHumans()}} </small></div>
-                <div class="card-body" style="background: #f9f9f9;"> 
+                <div class="card-body" style="background: #f9f9f9;">
                   <div class="row">
                 <div class="col-md-8">
                 {{$reply->content}}
@@ -136,7 +136,7 @@
                   <form action="{{route('replyComment', $comment->id)}}" method="post" style="    padding: 0 16px;">
                 {{csrf_field()}}
                 <div class="form-group">
-                <input type="text" name="content" class="form-control" id="input_reply" placeholder="Reply here..">        
+                <input type="text" name="content" class="form-control" id="input_reply" placeholder="Reply here..">
                 </div>
                 <button class="btn btn-success" type="submit">Submit</button>
                 </form>
@@ -147,7 +147,7 @@
 
             <p>No Comment</p>
 
-            @endforelse  
+            @endforelse
 
           <!-- endforelse -->
             <hr>
@@ -168,9 +168,9 @@
                   {{csrf_field()}}
                 <div class="form-group">
                   <input type="text" name="content" id="Your-Answer" placeholder="Your Comment:" required="required">
-                  <label for="Your-Comment">Your Comment:</label>    
+                  <label for="Your-Comment">Your Comment:</label>
                 </div>
-                <div class="button-gg"> 
+                <div class="button-gg">
                   <button class="btn btn-success" type="submit">Submit</button>
                 </div>
               </form>
@@ -181,7 +181,9 @@
             </div>
             </div>
                <div class="col-md-4">
+                 @if($role_id == 1 )
                   <a href="{{route('forum.create')}}" class="btn btn-success btn-block">Buat Pertanyaan</a><br>
+                  @endif
                   @include('layouts.popular')
             </div>
              </div>
@@ -220,7 +222,7 @@ input:focus {
   outline: 0;
 }
 
-::-webkit-input-placeholder { 
+::-webkit-input-placeholder {
   font-size: 16px;
   font-weight: 300;
   letter-spacing: -0.00933333em;
@@ -259,7 +261,7 @@ input:placeholder-shown  + label {
   font-weight: 400;
   transition: all 770ms cubic-bezier(0.51, 0.04, 0.12, 0.99);
   text-align: center;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .open .h1 {
@@ -302,14 +304,14 @@ input:placeholder-shown  + label {
 }
 
 .open .open_comment img {
-  -webkit-transform: translateX(280px) translateZ(0);  
-          transform: translateX(280px) translateZ(0);  
+  -webkit-transform: translateX(280px) translateZ(0);
+          transform: translateX(280px) translateZ(0);
 }
 
 .open .open_comment {
   -webkit-transform: translateX(-400px) translateZ(0);
           transform: translateX(-400px) translateZ(0);
-} 
+}
 
 .comment-show {
   position: absolute;
@@ -371,7 +373,7 @@ input[type="checkbox"]:after {
 
 input[type="checkbox"]:checked:after {
     opacity: 1;
-} 
+}
 
 .button-gg {
   margin-top: 20px;
@@ -384,7 +386,7 @@ input[type="checkbox"]:checked:after {
 }
 
 .btn-secondary {
-  color: #C359AA;  
+  color: #C359AA;
 }
 .bg,
 .overlay {
@@ -421,7 +423,7 @@ img,
 }
 .bg .overlay h2 {
   padding-top: 14%;
-  color: #fff; 
+  color: #fff;
 }
 .bg .overlay p {
   font-family: 'Julius Sans One', sans-serif;
@@ -447,7 +449,7 @@ img,
     margin: 1% auto;
   }
 }
-  
+
 </style>
 
 @section('js')
@@ -455,7 +457,7 @@ img,
 var openComment = document.querySelector('.h1');
 var addComment = document.querySelector('.add_comment');
 openComment.addEventListener('click', function(){
-addComment.classList.toggle('open'); 
-}); 
+addComment.classList.toggle('open');
+});
 </script>
 @endsection
