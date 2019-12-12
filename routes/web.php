@@ -29,7 +29,7 @@ Route::post('/comment/replyComment/{comment}', 'CommentController@replyComment')
 
 Route::get('/populars', 'ForumController@populars')->name('populars');
 
-Route::get('/user/{user}','ProfileController@index')->name('profile');
+Route::get('/user/{user}','ProfileController@index')->name('profile')->middleware('auth');
 
 Route::resource('/tag','TagController');
 Route::get('tag/show/{slug}/{role_id}', 'TagController@show');
