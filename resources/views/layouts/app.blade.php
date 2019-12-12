@@ -108,6 +108,7 @@
 
     <!-- Script -->
     <script src="/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <!--Datatables-->
     <script type="text/javascript" src="/assets/datatables/script/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/assets/datatables/script/dataTables.bootstrap4.min.js"></script>
@@ -116,7 +117,6 @@
     <script type="text/javascript" src="/assets/datatables/script/bootstrap.min.js"></script>
     <script src="/assets/js/sweetalert2.all.min.js"></script>
 
-    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     @yield('js')
